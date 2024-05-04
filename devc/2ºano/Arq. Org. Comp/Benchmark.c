@@ -1,115 +1,75 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h> // Para a função sleep
+#include <string.h>
 #include <time.h>
 
-#define ITERATIONS 1000  // número de execuções para obter uma média
-
-// Função para medir o tempo de alocação de memória
-double tempo_de_alocacao(size_t tamanho) {
-    clock_t inicio = clock(); // Marca o tempo de início
-    void *bloco = malloc(tamanho); // Aloca memória
-    clock_t fim = clock(); // Marca o tempo de fim
-    
-    if (bloco != NULL) {
-        free(bloco); // Libera a memória se a alocação foi bem-sucedida
-    } else {
-        printf("Erro: Não foi possível alocar memória.\n");
+// Interpretador de parâmetros
+void interpretar_parametros(int argc, char *argv[], int *S, int *W, int *ts) {
+    if (argc != 4) {
+        printf("Uso: %s <tamanho_memoria> <leituras_por_ciclo> <tempo_reposo_segundos>\n", argv[0]);
+        exit(EXIT_FAILURE);
     }
-    
-    return ((double)(fim - inicio)) / CLOCKS_PER_SEC; // Converte para segundos
+
+    *S = atoi(argv[1]);
+    *W = atoi(argv[2]);
+    *ts = atoi(argv[3]);
+
+    if (*S <= 0 || *W <= 0 || *ts < 0) {
+        printf("Parâmetros inválidos. S, W devem ser maiores que 0 e ts não pode ser negativo.\n");
+        exit(EXIT_FAILURE);
+    }
 }
 
-// Função para calcular a média de tempos
-double calcular_tempo_medio(double *tempos, int iteracoes) {
-    double soma = 0.0; // Soma para calcular a média
-    for (int i = 0; i < iteracoes; i++) {
-        soma += tempos[i]; // Soma todos os tempos
+// Alocador de memória
+char *alocar_memoria(int S) {
+    char *memoria = malloc(S * sizeof(char));
+    if (memoria == NULL) {
+        printf("Falha ao alocar memória.\n");
+        exit(EXIT_FAILURE);
     }
-    return soma / iteracoes; // Retorna a média
+    return memoria;
+}
+
+// Gerador de endereço
+int gerar_endereco(int S) {
+    return rand() % S; // Gera um endereço aleatório dentro do espaço de memória alocado
+}
+
+// Leitura/Escrita
+void leitura_escrita(char *memoria, int S, int W) {
+    for (int i = 0; i < W; i++) {
+        int endereco = gerar_endereco(S);
+        // Operação de leitura
+        char valor = memoria[endereco];
+        // Operação de escrita (modificamos levemente o valor para garantir escrita)
+        memoria[endereco] = valor ^ 0xFF; // Operação XOR com um valor constante
+    }
 }
 
 int main() {
-    // Tamanhos de alocação para teste
-    size_t tamanhos[] = {1024, 8192, 65536, 524288, 4194304}; // 1 KB, 8 KB, 64 KB, 512 KB, 4 MB
-    int num_tamanhos = sizeof(tamanhos) / sizeof(tamanhos[0]); // Número de tamanhos
+    int S, W, ts;
 
-    // Para cada tamanho, medir o tempo de alocação e obter a média
-    for (int i = 0; i < num_tamanhos; i++) {
-        double tempos[ITERATIONS]; // Array para armazenar tempos de alocação
-        size_t tamanho = tamanhos[i]; // Tamanho atual
-        
-        // Medir o tempo para múltiplas execuções
-        for (int j = 0; j < ITERATIONS; j++) {
-            tempos[j] = tempo_de_alocacao(tamanho); // Mede o tempo de alocação
-        }
+    // Interpretar parâmetros
+    interpretar_parametros(argc, argv, &S, &W, &ts);
 
-        // Calcular o tempo médio de alocação
-        double tempo_medio = calcular_tempo_medio(tempos, ITERATIONS); // Calcula a média
-        printf("Tempo médio para alocação de %zu bytes: %f segundos\n", tamanho, tempo_medio);
+    // Alocar memória
+    char *memoria = alocar_memoria(S);
+
+    // Iniciar gerador de números aleatórios
+    srand((unsigned)time(NULL));
+
+    // Laço principal do benchmark
+    while (1) {
+        // Executar operações de leitura/escrita
+        leitura_escrita(memoria, S, W);
+
+        // Tempo de repouso
+        sleep(ts);
     }
 
-    return 0;
-}
-
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-
-#define ITERATIONS 1000  // Número de execuções para obter uma média
-
-// Função para medir o tempo de alocação de memória
-double medir_tempo_de_alocacao(size_t tamanho) {
-    clock_t inicio = clock(); // Marca o tempo de início
-    void *bloco = malloc(tamanho); // Aloca memória
-    clock_t fim = clock(); // Marca o tempo de fim
-
-    if (bloco != NULL) {
-        // Inicializa a semente para o gerador de números aleatórios
-        srand((unsigned int)time(NULL));
-
-        // Manipula a memória de forma aleatória
-        char *ponteiro = (char *)bloco;
-        for (size_t i = 0; i < tamanho; i++) {
-            ponteiro[i] = (char)(rand() % 256); // Preenche com valores aleatórios
-        }
-
-        free(bloco); // Libera a memória
-    } else {
-        printf("Erro: Não foi possível alocar memória.\n");
-    }
-    
-    return ((double)(fim - inicio)) / CLOCKS_PER_SEC; // Converte para segundos
-}
-
-// Função para calcular a média de tempos
-double calcular_tempo_medio(double *tempos, int iteracoes) {
-    double soma = 0.0; // Soma para calcular a média
-    for (int i = 0; i < iteracoes; i++) {
-        soma += tempos[i]; // Soma todos os tempos
-    }
-    return soma / iteracoes; // Retorna a média
-}
-
-int main() {
-    // Tamanhos de alocação para teste
-    size_t tamanhos[] = {1024, 8192, 65536, 524288, 4194304}; // 1 KB, 8 KB, 64 KB, 512 KB, 4 MB
-    int num_tamanhos = sizeof(tamanhos) / sizeof(tamanhos[0]); // Número de tamanhos
-
-    // Para cada tamanho, medir o tempo de alocação e obter a média
-    for (int i = 0; i < num_tamanhos; i++) {
-        double tempos[ITERATIONS]; // Array para armazenar tempos de alocação
-        size_t tamanho = tamanhos[i]; // Tamanho atual
-        
-        // Medir o tempo para múltiplas execuções
-        for (int j = 0; j < ITERATIONS; j++) {
-            tempos[j] = medir_tempo_de_alocacao(tamanho); // Mede o tempo de alocação
-        }
-
-        // Calcular o tempo médio de alocação
-        double tempo_medio = calcular_tempo_medio(tempos, ITERATIONS); // Calcula a média
-        printf("Tempo médio para alocação de %zu bytes: %f segundos\n", tamanho, tempo_medio);
-    }
+    // Liberação da memória alocada (na prática, o loop é infinito, mas é bom liberar memória no final)
+    free(memoria);
 
     return 0;
 }
