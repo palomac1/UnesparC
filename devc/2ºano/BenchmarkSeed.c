@@ -63,5 +63,6 @@ int main() {
         printf("Tempo medio para alocacao de %zu bytes: %f segundos\n", tamanho, tempo_medio);
     }
 
+    getchar();
     return 0;
 }
