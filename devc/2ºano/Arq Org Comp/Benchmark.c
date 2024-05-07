@@ -8,7 +8,7 @@
 //Acessa a memoria com blocos separados de maneira imprevisivel, garantindo o uso durante testes mais complexos
 //Exibe mais lentamente
 
-#define ITERATIONS 1000  // Número de execuções para obter uma média
+#define ITERATIONS 100  // Número de execuções para obter uma média
 
 // Função para medir o tempo de alocação de memória
 double medir_tempo_de_alocacao(size_t tamanho) {
@@ -62,7 +62,7 @@ int main() {
 
         // Calcular o tempo médio de alocação
         double tempo_medio = calcular_tempo_medio(tempos, ITERATIONS); // Calcula a média
-        printf("Tempo medio para alocacao de %zu bytes: %f segundos\n", tamanho, tempo_medio);
+        printf("Tempo médio para alocação de %zu bytes: %f segundos\n", tamanho, tempo_medio);
     }
 
     getchar();
