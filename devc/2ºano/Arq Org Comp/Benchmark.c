@@ -44,6 +44,8 @@ double calcular_tempo_medio(double *tempos, int iteracoes) {
 }
 
 int main() {
+
+    char c;
     // Tamanhos de alocação para teste
     size_t tamanhos[] = {1024, 8192, 65536, 524288, 4194304}; // 1 KB, 8 KB, 64 KB, 512 KB, 4 MB
     int num_tamanhos = sizeof(tamanhos) / sizeof(tamanhos[0]); // Número de tamanhos
@@ -65,6 +67,12 @@ int main() {
         printf("Tempo médio para alocação de %zu bytes: %f segundos\n", tamanho, tempo_medio);
     }
 
-    getchar();
+   // getchar();  //testar outra biblioteca
+
+   printf("Digite um tecla para finalizar");
+
+   if(scanf("%c", &c) == 1){
     return 0;
+   }
+
 }
