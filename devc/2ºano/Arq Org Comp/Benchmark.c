@@ -7,8 +7,9 @@
 //Preenche com numeros aletorios todas as vezes
 //Acessa a memoria com blocos separados de maneira imprevisivel, garantindo o uso durante testes mais complexos
 //Exibe mais lentamente
+//Arrumar os acentos
 
-#define ITERATIONS 100  // Número de execuções para obter uma média
+#define ITERATIONS 1000  // Número de execuções para obter uma média
 
 // Função para medir o tempo de alocação de memória
 double medir_tempo_de_alocacao(size_t tamanho) {
@@ -67,9 +68,7 @@ int main() {
         printf("Tempo médio para alocação de %zu bytes: %f segundos\n", tamanho, tempo_medio);
     }
 
-   // getchar();  //testar outra biblioteca
-
-   printf("Digite um tecla para finalizar");
+   printf("\nDigite um tecla para finalizar");
 
    if(scanf("%c", &c) == 1){
     return 0;
