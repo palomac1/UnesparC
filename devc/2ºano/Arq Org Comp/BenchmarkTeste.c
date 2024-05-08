@@ -64,7 +64,7 @@ int main() {
     size_t tamanhos[] = {1024, 8192, 65536, 524288, 4194304}; // 1 KB, 8 KB, 64 KB, 512 KB, 4 MB
     int num_tamanhos = sizeof(tamanhos) / sizeof(tamanhos[0]); // Número de tamanhos no array
 
-    printf("Benchmark para Alocacao de Memoria\n");
+    printf("Benchmark para Alocacao de Memoria (1KB, 8KB, 64KB, 512KB, 4MB)\n");
 
     // Para cada tamanho, medir os tempos de alocação e manipulação, e obter a média
     for (int i = 0; i < num_tamanhos; i++) { //Percorre os blocos para medir os tempos
