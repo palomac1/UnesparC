@@ -1,7 +1,7 @@
 #include<stdlib.h>
 #include<stdio.h>
-#include<math.h> //Operações matemáticas
-main(){
+#include<math.h> //Operaï¿½ï¿½es matemï¿½ticas
+int main(){
 	int x, dobro, metade;
 	
 	printf("Insira um valor: ");

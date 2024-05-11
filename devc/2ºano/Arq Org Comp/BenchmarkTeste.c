@@ -2,13 +2,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-//TESTE USANDO SRAND PARA NUMEROS ALEATORIOS E MEM BAIXO NIVEL
-//Garante resultados diferentes em todos os testes por usar o tempo atual
-//Preenche com numeros aletorios todas as vezes
-//Acessa a memoria com blocos separados de maneira imprevisivel, garantindo o uso durante testes mais complexos
-//Exibe mais lentamente
-//Arrumar os acentos
-
 #define ITERATIONS 1000  // Constante para o número de execuções e obter uma média dos tempos
 
 // Função para medir o tempo de alocação e manipulação de memória
