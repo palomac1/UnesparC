@@ -13,6 +13,7 @@ int main() {
         subtrair(calc, 2);
 
         imprimirResultado(calc);
+        
         destruirCalculadora(calc);
     }
 
