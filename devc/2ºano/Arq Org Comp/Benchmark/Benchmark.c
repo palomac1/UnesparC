@@ -80,7 +80,7 @@ int main() {
 
         // Exibir resultados
         printf("\nPara %zu bytes:\n", tamanho); // Exibe o tamanho do bloco atual
-        printf(" - Tempo medio para manipulacao aleatoria: %f segundos\n", tempo_medio_alocacao);
+        printf(" - Tempo medio para manipulacao aleatoria: %f segundos\n", tempo_medio_alocacao); 
         printf(" - Tempo medio para manipulacao sequencial: %f segundos\n", tempo_medio_manipulacao);
     }
 
