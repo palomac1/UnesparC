@@ -9,7 +9,7 @@ int main(){
     printf("Digite a quantidade de vetores: \n");
     scanf("%d", &n);
 
-    v = malloc(n * sizeof(int));
+    v = malloc(n * sizeof(int)); // alocação de memória
 
     printf("-------------------------\n");
 

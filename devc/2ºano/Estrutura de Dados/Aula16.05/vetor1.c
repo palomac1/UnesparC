@@ -17,8 +17,9 @@ int main(){
 
     int y = 0;
 
+    // Enquanto arr[y] for diferente de 0, imprime a string
     while(arr[y]){
-        printf("%c", arrs[y++]);
+        printf("%c", arrs[y++]); // imprime a string e incrementa o valor de y
     }
 
     printf("\n");

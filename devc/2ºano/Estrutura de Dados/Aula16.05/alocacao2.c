@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 int main() {
+    
     int *valores; 
     int soma = 0;
     int n = 5; 
