@@ -1,8 +1,3 @@
-// Lista - dados ligados de maneira linear, ter ponteiros apontando para a cabeça da lista
-/*1 - criar menu da lista (impressão, ordenar, começo, fim, contagem)
-2 - contagem de nós
-3 - criar um método para fazer a média dos números inseridos nos nós*/
-
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -48,6 +43,17 @@ no *criar_no() {
     return novo;
 }
 
+no *buscar(no* lista, int dado){
+    no *atual = lista;
+    while (atual != NULL) {
+        if(atual -> num == dado){
+            return atual; 
+        }
+        atual = atual -> prox;
+    }
+     return NULL;
+}
+
 void imprimir_lista(no *lista) {
     no *aux = lista; // O auxiliar percorre a lista para que nenhum dado da lista seja perdido
     while (aux != NULL) {
@@ -87,19 +93,20 @@ float calcular_media(no *lista) {
     return (float)soma/contador;
 }
 
-void liberar_lista(no *lista) { // Libera a memória alocada para a lista afim de não causar erros futuros
-    no *aux;
-
-    while (lista != NULL) {
-        aux = lista;
-        lista = lista->prox;
-        free(aux);
+void liberar_lista(no* lista){
+    no* atual = lista;
+    no* prox_no;
+    while (atual != NULL){
+        prox_no = atual -> prox;
+        free(atual);
+        atual = prox_no;
     }
 }
 
 int main() {
     int opcao, valor, i;
     no *lista = NULL; // Crian um ponteiro de lista que aponta para NULL
+    no *resultado;
 
     do {
         printf("\nMenu:\n");
@@ -107,7 +114,10 @@ int main() {
         printf("2. Imprimir lista\n");
         printf("3. Contar nós\n");
         printf("4. Calcular média\n");
-        printf("5. Sair\n");
+        printf("5. Buscar elemento\n");
+        printf("6. Liberar lista\n");
+        printf("7. Remover elemento\n");
+        printf("8. Sair\n");
         printf("Escolha uma opção: ");
         scanf("%d", &opcao);
 
@@ -122,7 +132,7 @@ int main() {
                 }
                 break;
             case 2:
-                imprimir_lista(lista);
+                pritnf("Elementos da lista: \n", imprimir_lista(lista));
                 break;
             case 3:
                 printf("Total de nós: %d\n", contar_nos(lista));
@@ -131,29 +141,44 @@ int main() {
                 printf("Média: %.2f\n", calcular_media(lista));
                 break;
             case 5:
+                printf("Digite o valor a ser buscado:");
+                scanf("%d", &valor);
+                resultado = buscar(lista, valor);
+                if(resultado != NULL){
+                    printf("Valor encontrado na lista: %d\n", valor);
+                } else {
+                    printf("Valor não encontrado\n");
+                }
+                break;
+            case 6:
+                liberar_lista(lista);
+                lista = NULL;
+                printf("Lista liberada\n");
+                break;
+            case 7:
+                printf("Qual numero deseja remover? \n");
+                scanf("%d", &valor);
+                lista = remover(lista, valor);
+                imprimir_lista(lista);
+                break;
+            case 8:
                 printf("Sair\n");
                 break;
             default:
                 printf("Opção inválida!\n");
         }
-    } while (opcao != 5);
+    } while (opcao != 8);
 
-    liberar_lista(lista);
+    return 0; 
 
     /*lista = inserir_ordenado(lista, 3);
     lista = inserir_ordenado(lista, 2);
     lista = inserir_ordenado(lista, 1);
     imprimir_lista(lista);
 
-   lista = inserirElementoFim(lista, 10);
+    lista = inserirElementoFim(lista, 10);
     lista = inserirElementoFim(lista, 20);
     lista = inserirElementoFim(lista, 30);
-    imprimir_lista(lista); 
+    imprimir_lista(lista); */
 
-    printf("Qual numero deseja remover? \n");
-    scanf("%d", &valor);
-    lista = remover(lista, valor);
-    imprimir_lista(lista);*/
-
-    return 0;
 }
