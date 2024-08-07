@@ -23,7 +23,7 @@ void criarFila(Fila *fila){ // Criando uma fila
 }
 
 void inserirFilaPrioridade(Fila *fila, int num, int prioridade){
-    No *novo = malloc(sizeof(No));
+    No *novo = (No*)malloc(sizeof(No));
     if(novo != NULL){
         novo->valor = num;
         novo->proximo = NULL;
