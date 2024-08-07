@@ -132,7 +132,7 @@ int main() {
                 }
                 break;
             case 2:
-                pritnf("Elementos da lista: \n", imprimir_lista(lista));
+                printf("Elementos da lista: \n", imprimir_lista(lista));
                 break;
             case 3:
                 printf("Total de nós: %d\n", contar_nos(lista));
