@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Implementa√ß√£o de uma fila com prioridade
+// ImplementaÁ„o de uma fila com prioridade
 
 typedef struct no {
     int valor;
@@ -15,7 +15,7 @@ typedef struct {
     int tamanho;
 } Fila;
 
-void criarFila(Fila *fila){ // Fun√ß√£o para inicializar a fila
+void criarFila(Fila *fila){ // FunÁ„o para inicializar a fila
     fila->inicio = NULL;
     fila->final = NULL;
     fila->tamanho = 0;
@@ -28,12 +28,12 @@ void inserirFilaPrioridade(Fila *fila, int num, int prioridade){
         novo->valorPrioridade = prioridade;
         novo->proximo = NULL;
 
-        // Se a fila est√° vazia, insere no in√≠cio
+        // Se a fila est· vazia, insere no inÌcio
         if (fila->inicio == NULL){
             fila->inicio = novo;
             fila->final = novo;
         } else {
-            // Inserir o n√≥ de acordo com sua prioridade (ordena√ß√£o crescente)
+            // Inserir o nÛ de acordo com sua prioridade (ordenaÁ„o crescente)
             No *atual = fila->inicio;
             No *anterior = NULL;
 
@@ -42,7 +42,7 @@ void inserirFilaPrioridade(Fila *fila, int num, int prioridade){
                 atual = atual->proximo;
             }
 
-            if (anterior == NULL) { // Inserir no in√≠cio
+            if (anterior == NULL) { // Inserir no inÌcio
                 novo->proximo = fila->inicio;
                 fila->inicio = novo;
             } else if (atual == NULL) { // Inserir no final
@@ -56,7 +56,7 @@ void inserirFilaPrioridade(Fila *fila, int num, int prioridade){
 
         fila->tamanho++;
     } else {
-        printf("\nErro ao alocar mem√≥ria.\n");
+        printf("\nErro ao alocar memÛria.\n");
     }
 }
 
@@ -92,7 +92,7 @@ int main(){
     int valor, entradaUsuario, prioridade, removerValor;
 
     do {
-        printf("\nEscolha uma op√ß√£o: \n");
+        printf("\nEscolha uma opÁ„o: \n");
         printf(" 0 - Sair \n 1 - Inserir \n 2 - Remover \n 3 - Imprimir \n\n");
         scanf("%d", &entradaUsuario);
         switch(entradaUsuario)
@@ -105,7 +105,7 @@ int main(){
             if(prioridade == 1 || prioridade == 2){
                 inserirFilaPrioridade(&filaPrioridade, valor, prioridade);
             } else {
-                printf("Prioridade inv√°lida.\n");
+                printf("Prioridade inv·lida.\n");
             }
             break;
         case 2:
@@ -120,7 +120,7 @@ int main(){
             break;
         default:
             if(entradaUsuario != 0){
-                printf("Op√ß√£o inv√°lida.\n");
+                printf("OpÁ„o inv·lida.\n");
             }
             break;
         }
