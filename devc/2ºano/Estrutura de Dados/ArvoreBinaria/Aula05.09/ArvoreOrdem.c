@@ -13,7 +13,7 @@ typedef struct ArvB {
 //Insere o nó na esquerda
 void inserirEsquerda(No *no, int valor){
     if (no->esquerda == NULL) {
-        No *novo = (No *)malloc(sizeof(No));  // Allocate memory correctly
+        No *novo = (No *)malloc(sizeof(No));  
         novo->conteudo = valor;
         novo->esquerda = NULL;
         novo->direita = NULL;
@@ -29,7 +29,7 @@ void inserirEsquerda(No *no, int valor){
 
 void inserirDireita(No *no, int valor){
     if (no->direita == NULL) {
-        No *novo = (No *)malloc(sizeof(No));  // Allocate memory correctly
+        No *novo = (No *)malloc(sizeof(No));  
         novo->conteudo = valor;
         novo->esquerda = NULL;
         novo->direita = NULL;
@@ -45,7 +45,7 @@ void inserirDireita(No *no, int valor){
 
 void inserir(ArvB *arv, int valor){
     if (arv->raiz == NULL) {
-        No *novo = (No *)malloc(sizeof(No));  // Allocate memory correctly
+        No *novo = (No *)malloc(sizeof(No));  
         novo->conteudo = valor;
         novo->esquerda = NULL;
         novo->direita = NULL;
@@ -69,7 +69,7 @@ void imprimir(No *raiz){
 
 int main(){
     int op, valor;
-    ArvB *arv = (ArvB *)malloc(sizeof(ArvB));  // Allocate memory correctly
+    ArvB *arv = (ArvB *)malloc(sizeof(ArvB));  
     arv->raiz = NULL;
 
     do {
